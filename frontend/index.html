@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简约闹钟</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>简约闹钟</h1>
+            <p>轻松管理您的日程提醒</p>
+        </header>
+
+        <main class="main-content">
+            <section class="add-alarm-section">
+                <h2>添加新闹钟</h2>
+                <form id="alarmForm">
+                    <div class="form-group">
+                        <label for="alarmTime">时间</label>
+                        <input type="time" id="alarmTime" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alarmLabel">标签</label>
+                        <input type="text" id="alarmLabel" class="form-control" placeholder="例如：起床、开会、运动..."
+                            maxlength="50">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alarmRepeat">重复</label>
+                        <select id="alarmRepeat" class="form-control">
+                            <option value="none">不重复</option>
+                            <option value="daily">每天</option>
+                            <option value="weekly">每周</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">添加闹钟</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </form>
+            </section>
+
+            <section class="alarms-section">
+                <div class="alarms-header">
+                    <h2>我的闹钟</h2>
+                </div>
+                <div class="alarms-list" id="alarmsList">
+                    <div class="loading">
+                        <span class="spinner"></span>
+                        正在加载闹钟...
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 编辑闹钟模态框 -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>编辑闹钟</h3>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            <form id="editAlarmForm">
+                <div class="form-group">
+                    <label for="editAlarmTime">时间</label>
+                    <input type="time" id="editAlarmTime" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editAlarmLabel">标签</label>
+                    <input type="text" id="editAlarmLabel" class="form-control" placeholder="例如：起床、开会、运动..."
+                        maxlength="50">
+                </div>
+
+                <div class="form-group">
+                    <label for="editAlarmRepeat">重复</label>
+                    <select id="editAlarmRepeat" class="form-control">
+                        <option value="none">不重复</option>
+                        <option value="daily">每天</option>
+                        <option value="weekly">每周</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="editAlarmEnabled"> 启用闹钟
+                    </label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="alarmManager.closeEditModal()">取消</button>
+                    <button type="submit" class="btn btn-primary">更新闹钟</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
